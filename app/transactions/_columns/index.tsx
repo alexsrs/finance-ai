@@ -1,36 +1,14 @@
 "use client";
 
-import {
-  Transaction,
-  TransactionCategory,
-  TransactionPaymentMethod,
-} from "@prisma/client";
+import { Transaction } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import TransactionTypeBadge from "../_components/type-badge";
 import { PencilIcon, Trash2Icon } from "lucide-react";
 import { Button } from "@/app/_components/ui/button";
-
-const transactionCategoryMap = {
-  [TransactionCategory.HOUSING]: "Moradia",
-  [TransactionCategory.FOOD]: "Alimentação",
-  [TransactionCategory.TRANSPORTATION]: "Transporte",
-  [TransactionCategory.HEALTH]: "Saúde",
-  [TransactionCategory.EDUCATION]: "Educação",
-  [TransactionCategory.ENTERTAINMENT]: "Entretenimento",
-  [TransactionCategory.OTHER]: "Outros",
-  [TransactionCategory.SALARY]: "Renda",
-  [TransactionCategory.UTILITY]: "Presente",
-};
-
-const paymentMethodMap = {
-  [TransactionPaymentMethod.CREDIT_CARD]: "Cartão de Crédito",
-  [TransactionPaymentMethod.DEBIT_CARD]: "Cartão de Débito",
-  [TransactionPaymentMethod.CASH]: "Dinheiro",
-  [TransactionPaymentMethod.PIX]: "PIX",
-  [TransactionPaymentMethod.BANK_TRANSFER]: "Transferência",
-  [TransactionPaymentMethod.BANK_SLIP]: "Boleto",
-  [TransactionPaymentMethod.OTHER]: "Outros",
-};
+import {
+  TRANSACTION_CATEGORY_LABELS,
+  TRANSACTION_PAYMENT_METHOD_LABELS,
+} from "@/app/_constants/transactions";
 
 export const transactionColumns: ColumnDef<Transaction>[] = [
   {
@@ -48,13 +26,13 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     accessorKey: "category",
     header: "Categoria",
     cell: ({ row: { original: transaction } }) =>
-      transactionCategoryMap[transaction.category],
+      TRANSACTION_CATEGORY_LABELS[transaction.category],
   },
   {
     accessorKey: "paymentMethod",
     header: "Método de Pagamento",
     cell: ({ row: { original: transaction } }) =>
-      paymentMethodMap[transaction.paymentMethod],
+      TRANSACTION_PAYMENT_METHOD_LABELS[transaction.paymentMethod],
   },
   {
     accessorKey: "date",
